@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, map, filter, distinctUntilChanged, tap, switchMap } from 'rxjs/operators';
+import { debounceTime, map, filter, distinctUntilChanged, tap, switchMap, finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -24,10 +24,11 @@ export class GoogleSearchDebouncing {
       distinctUntilChanged(),
       tap((v) => {
         this.loading = true;
+        this.results = [];
       }),
-      switchMap((v) => this.http.get(`https://api.datamuse.com/sug?s=${v}`))
+      switchMap((v) => this.http.get(`https://api.datamuse.com/sug?s=${v}`).pipe(
+        finalize(() => this.loading = false)))
     ).subscribe((data: any) => {
-      this.loading = false;
       this.results = data;
     });
   }
