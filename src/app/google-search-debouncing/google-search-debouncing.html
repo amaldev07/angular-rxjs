@@ -1,0 +1,12 @@
+<form>
+    <input type="text" [formControl]="searchControl" placeholder="Search...">
+</form>
+{{loading}}
+@if (loading) {
+<span>Loading...</span>
+}
+<ul>
+    @for (result of results; track result) {
+    <li>{{ result.word }}</li>
+    }
+</ul>

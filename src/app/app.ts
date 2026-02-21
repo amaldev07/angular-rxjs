@@ -1,13 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { RxjsThrotteling } from "./rxjs-throtteling/rxjs-throtteling";
+import { RxjsThrotteling } from './rxjs-throtteling/rxjs-throtteling';
+import { RxjsSwitchmap } from './rxjs-switchmap/rxjs-switchmap';
+import { GoogleSearchDebouncing } from './google-search-debouncing/google-search-debouncing';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RxjsThrotteling],
+  standalone: true,
+  imports: [RouterOutlet, RxjsThrotteling, RxjsSwitchmap, GoogleSearchDebouncing],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
-export class App {
-  
-}
+export class App {}
